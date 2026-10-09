@@ -9,4 +9,8 @@ class Book < ApplicationRecord
   validates :status, presence: true, inclusion: {in: STATUSES}
 
   enum :status, STATUSES.index_by(&:to_sym), validate: true
+
+  scope :not_archived, -> { where(status: "available") }
+
+  def formatted_serial = format("%06d", serial_number)
 end

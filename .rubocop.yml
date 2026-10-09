@@ -11,3 +11,13 @@ Layout/SpaceInsideArrayLiteralBrackets:
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: true
   EnforcedStyle: no_space
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  Exclude:
+    - "bin/**/*"
+    - "config/**/*"
+    - "config.ru"
+    - "Rakefile"
+    - "Gemfile"
+    - "db/seeds.rb"

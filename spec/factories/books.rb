@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :book do
     serial_number { Faker::Number.unique.number(digits: 5) }
