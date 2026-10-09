@@ -1,24 +1,35 @@
-# README
+# Recruitment Task: Ruby on Rails Developer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple API for a library management system.
 
-Things you may want to cover:
+## Requirements
+- Ruby: 4.0.7
+- Rails: 8.1.4
 
-* Ruby version
+## SQL Architecture
 
-* System dependencies
+### books
+- serial_number int
+- title varchar
+- author varchar
+- status varchar (available, borrowed, archived)
 
-* Configuration
+### readers
+- card_number int
+- full_name varchar
+- email varchar
 
-* Database creation
+### loans
+- reader_id int
+- book_id int
+- status varchar (pending, active, completed)
+- borrowed_at timestamp
+- returned_at timestamp
 
-* Database initialization
+## API Endpoints
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- GET /v1/books
+- POST /v1/books
+- POST /v1/book/{id}
+- DELETE /v1/book/{id}
+- GET /v1/loans
