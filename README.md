@@ -3,6 +3,7 @@
 A simple API for a library management system.
 
 [![CI](https://github.com/mariuszmikolajczak/books-api/actions/workflows/ci.yml/badge.svg)](https://github.com/mariuszmikolajczak/books-api/actions/workflows/ci.yml)
+[![rspec](https://github.com/mariuszmikolajczak/books-api/actions/workflows/rspec.yml/badge.svg)](https://github.com/mariuszmikolajczak/books-api/actions/workflows/rspec.yml)
 ![Ruby](https://img.shields.io/badge/ruby-4.0.7-red)
 
 ## Requirements
