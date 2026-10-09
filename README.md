@@ -9,6 +9,28 @@ A simple API for a library management system.
 - Ruby: 4.0.7
 - Rails: 8.1.4
 
+## Run the application
+
+To build and start the application:
+```bash
+docker compose up --build
+```
+
+To run specs
+```bash
+docker compose run --rm web bundle exec rspec
+```
+
+To run rails console
+```bash
+docker compose run --rm web bin/rails c
+```
+
+To install dependencies after changing the Gemfile
+```bash
+docker compose run --rm web bundle install
+```
+
 ## SQL Architecture
 
 ### books
