@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        book:
+          borrowed_cannot_be_archived: "Cannot archive a borrowed book"

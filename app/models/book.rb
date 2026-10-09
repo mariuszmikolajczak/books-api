@@ -7,10 +7,17 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :author, presence: true
   validates :status, presence: true, inclusion: {in: STATUSES}
+  validate :archiving_borrowed_book, on: :update, if: -> { status_changed? && status == "archived" }
 
   enum :status, STATUSES.index_by(&:to_sym), validate: true
 
   scope :not_archived, -> { where(status: "available") }
 
   def formatted_serial = format("%06d", serial_number)
+
+  private
+
+  def archiving_borrowed_book
+    errors.add(:base, :borrowed_cannot_be_archived) if status_was.casecmp?("borrowed") && status.casecmp?("archived")
+  end
 end

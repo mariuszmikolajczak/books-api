@@ -14,13 +14,10 @@ class Api::V1::BooksController < Api::V1::BaseController
   end
 
   def destroy
-    case BookArchiver.call(@book)
-    in [:ok, nil]
+    if @book.update(status: "archived")
       head :ok
-    in [:error, message]
-      render_error(message)
     else
-      render_error
+      render_error(@book.errors.full_messages.join(", "))
     end
   end
 
