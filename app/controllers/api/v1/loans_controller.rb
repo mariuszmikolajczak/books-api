@@ -6,9 +6,9 @@ class Api::V1::LoansController < Api::V1::BaseController
     in [:ok, loan]
       render json: LoanSerializer.one(loan), status: :created
     in [:error, message]
-      render_error(t(message))
+      render_error(I18n.t("loans.#{message}"))
     in [:exception, message]
-      render_error(message)
+      render_error(message, :internal_server_error)
     else
       render_error
     end
