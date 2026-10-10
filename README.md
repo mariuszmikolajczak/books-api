@@ -48,8 +48,8 @@ docker compose run --rm web bundle install
 ### loans
 - reader_id int
 - book_id int
-- status varchar (pending, active, completed)
 - borrowed_at timestamp
+- due_at timestamp
 - returned_at timestamp
 
 ## API Endpoints
