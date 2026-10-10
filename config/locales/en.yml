@@ -33,3 +33,9 @@ en:
       models:
         book:
           borrowed_cannot_be_archived: "Cannot archive a borrowed book"
+        loan:
+          attributes:
+            book_id:
+              already_borrowed: "is already borrowed"
+            due_at:
+              after_borrowed_date: "must be after the borrowed date"

@@ -3,6 +3,8 @@
 class Book < ApplicationRecord
   STATUSES = %w[available borrowed archived].freeze
 
+  has_many :loans, dependent: :restrict_with_error
+
   validates :serial_number, presence: true, uniqueness: true, numericality: {only_integer: true, greater_than: 0}
   validates :title, presence: true
   validates :author, presence: true
