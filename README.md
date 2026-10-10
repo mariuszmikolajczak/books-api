@@ -54,8 +54,9 @@ docker compose run --rm web bundle install
 
 ## API Endpoints
 
-- GET /v1/books
-- POST /v1/books
-- POST /v1/book/{id}
-- DELETE /v1/book/{id}
-- GET /v1/loans
+- GET /api/v1/books
+- POST /api/v1/books
+- POST /api/v1/book/{id}
+- DELETE /api/v1/book/{id}
+- GET /api/v1/readers
+- GET /api/v1/loans
