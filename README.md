@@ -59,4 +59,5 @@ docker compose run --rm web bundle install
 - DELETE `/api/v1/book/{id}` - Archive book
 - GET `/api/v1/readers` - List readers
 - POST `/api/v1/readers` - Create reader
-- GET `/api/v1/loans`
+- POST `/api/v1/loans` - Borrow book
+- POST `/api/v1/loans/return` - Return book

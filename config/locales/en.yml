@@ -43,3 +43,4 @@ en:
     book_already_borrowed: "Book is already borrowed"
     book_not_found: "Book not found"
     reader_not_found: "Reader not found"
+    no_active_loan: "No active loan found for this book"

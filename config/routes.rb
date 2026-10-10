@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :books, only: %i[index show create destroy]
       resources :readers, only: %i[index create]
-      resources :loans, only: %i[create]
+      resources :loans, only: %i[create] do
+        post :return, on: :collection, action: :return_book
+      end
     end
   end
 end
