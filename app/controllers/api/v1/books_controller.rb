@@ -4,7 +4,7 @@ class Api::V1::BooksController < Api::V1::BaseController
   before_action :load_book, only: %i[show destroy]
 
   def index
-    render json: BookSerializer.many(Book.not_archived)
+    render json: BookSerializer.many(Book.all)
   end
 
   def show

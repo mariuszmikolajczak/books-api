@@ -7,11 +7,11 @@ class Book < ApplicationRecord
   validates :title, presence: true
   validates :author, presence: true
   validates :status, presence: true, inclusion: {in: STATUSES}
-  validate :archiving_borrowed_book, on: :update, if: -> { status_changed? && status == "archived" }
+  validate :archiving_borrowed_book, on: :update, if: -> { status_changed? && status.casecmp?("archived") }
 
   enum :status, STATUSES.index_by(&:to_sym), validate: true
 
-  scope :not_archived, -> { where(status: "available") }
+  default_scope -> { where.not(status: "archived") }
 
   def formatted_serial = format("%06d", serial_number)
 
