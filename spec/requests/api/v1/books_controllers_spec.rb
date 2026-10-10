@@ -31,6 +31,61 @@ RSpec.describe Api::V1::BooksController, type: :request do
     end
   end
 
+  describe "POST /api/v1/books" do
+    subject(:post_request) { post(api_v1_books_path, params:) }
+
+    let(:params) do
+      {
+        book: {
+          serial_number: 123456,
+          title: "Test Book",
+          author: "Test Author"
+        }
+      }
+    end
+
+    it "creates a new book" do
+      expect { post_request }.to change { Book.count }.by(1)
+      expect(response).to have_http_status(:created)
+      expect(json["serial_number"]).to eq("123456")
+      expect(json["title"]).to eq("Test Book")
+      expect(json["author"]).to eq("Test Author")
+      expect(json["status"]).to eq("available")
+    end
+
+    context "when serial_number is not unique" do
+      before do
+        create(:book, serial_number: 123456)
+      end
+
+      it "returns error" do
+        expect { post_request }.not_to change { Book.count }
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to eq("Serial number has already been taken")
+      end
+    end
+
+    context "when missing required fields" do
+      let(:params) do
+        {
+          book: {
+            serial_number: nil,
+            title: nil,
+            author: nil
+          }
+        }
+      end
+
+      it "returns error" do
+        expect { post_request }.not_to change { Book.count }
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(json["error"]).to include("Serial number can't be blank")
+        expect(json["error"]).to include("Title can't be blank")
+        expect(json["error"]).to include("Author can't be blank")
+      end
+    end
+  end
+
   describe "DELETE /api/v1/books/:id" do
     subject(:delete_request) { delete api_v1_book_path(book.id) }
 

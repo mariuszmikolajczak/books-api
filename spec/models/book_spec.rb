@@ -34,4 +34,3 @@ RSpec.describe Book, type: :model do
     expect(book.formatted_serial).to eq("000042")
   end
 end
-

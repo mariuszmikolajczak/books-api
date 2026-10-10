@@ -3,6 +3,8 @@
 class BookSerializer
   def self.many(books) = books.map { new(it).as_json }
 
+  def self.one(book) = new(book).as_json
+
   def initialize(book) = @book = book
 
   def as_json
