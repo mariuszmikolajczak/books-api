@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Reader < ApplicationRecord
+  has_many :loans, dependent: :restrict_with_error
+
   normalizes :email, with: ->(email) { email.strip.downcase }
   normalizes :full_name, with: ->(name) { name.squish }
 
