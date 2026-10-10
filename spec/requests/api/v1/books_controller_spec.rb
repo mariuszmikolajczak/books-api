@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Api::V1::BooksController, type: :request do
   describe "GET /api/v1/books" do
@@ -86,8 +86,28 @@ RSpec.describe Api::V1::BooksController, type: :request do
     end
   end
 
-  describe "DELETE /api/v1/books/:id" do
-    subject(:delete_request) { delete api_v1_book_path(book.id) }
+  describe "GET /api/v1/books/:serial_number" do
+    subject(:get_request) { get api_v1_book_path(book.formatted_serial) }
+
+    let!(:book) { create(:book) }
+
+    before do
+      create_list(:loan, 10, book:, returned_at: Time.current)
+    end
+
+    it "returns book details" do
+      expect { get_request }.not_to raise_error
+      expect(response).to have_http_status(:ok)
+      expect(json["loans"].count).to eq(10)
+      expect(json["serial_number"]).to eq(book.formatted_serial)
+      expect(json["title"]).to eq(book.title)
+      expect(json["author"]).to eq(book.author)
+      expect(json["status"]).to eq(book.status)
+    end
+  end
+
+  describe "DELETE /api/v1/books/:serial_number" do
+    subject(:delete_request) { delete api_v1_book_path(book.formatted_serial) }
 
     let!(:book) { create(:book) }
 
@@ -104,6 +124,15 @@ RSpec.describe Api::V1::BooksController, type: :request do
         expect { delete_request }.not_to raise_error
         expect(response).to have_http_status(:unprocessable_content)
         expect(json["error"]).to eq("Cannot archive a borrowed book")
+      end
+    end
+
+    context "when book doesn't exist" do
+      subject(:delete_request) { delete api_v1_book_path("nonexistent") }
+
+      it "returns error" do
+        expect { delete_request }.not_to raise_error
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
