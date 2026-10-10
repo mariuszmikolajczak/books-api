@@ -8,6 +8,7 @@ class Api::V1::BooksController < Api::V1::BaseController
   end
 
   def show
+    render json: BookHistorySerializer.one(@book)
   end
 
   def create
@@ -30,7 +31,7 @@ class Api::V1::BooksController < Api::V1::BaseController
 
   private
 
-  def load_book = @book = Book.find(params[:id])
+  def load_book = @book = Book.find_by!(serial_number: params[:id])
 
   def book_params = params.require(:book).permit(:serial_number, :title, :author)
 end

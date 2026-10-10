@@ -8,6 +8,7 @@ class LoanCreator
     @reader_card_number = reader_card_number
     @book = nil
     @reader = nil
+    @borrowed_at = nil
   end
 
   def call
@@ -33,7 +34,7 @@ class LoanCreator
 
   def reader = @reader ||= Reader.find_by(card_number: reader_card_number)
 
-  def borrowed_at = Time.zone.now
+  def borrowed_at = @borrowed_at ||= Time.zone.now
 
   def due_at = borrowed_at + Rails.application.config.x.book_borrow_time.days
 end

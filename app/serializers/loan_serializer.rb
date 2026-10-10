@@ -1,18 +1,12 @@
 # frozen_string_literal: true
 
-class LoanSerializer
+class LoanSerializer < SimpleLoanSerializer
   extend CommonMethods
 
-  def initialize(loan) = @loan = loan
-
   def as_json
-    {
-      id: @loan.id,
+    super.merge(
       book: BookSerializer.one(@loan.book),
-      reader: ReaderSerializer.one(@loan.reader),
-      borrowed_at: @loan.borrowed_at,
-      due_at: @loan.due_at,
-      returned_at: @loan.returned_at
-    }
+      reader: ReaderSerializer.one(@loan.reader)
+    )
   end
 end
