@@ -13,8 +13,8 @@ RSpec.describe Api::V1::BooksController, type: :request do
     it "returns list of books" do
       expect { get_request }.not_to raise_error
       expect(response).to have_http_status(:ok)
-      expect(json).to be_an(Array)
-      expect(json.count).to eq(5)
+      expect(json["books"]).to be_an(Array)
+      expect(json["books"].count).to eq(5)
     end
 
     context "when there are archived books" do
@@ -25,8 +25,8 @@ RSpec.describe Api::V1::BooksController, type: :request do
       it "does not return archived books" do
         expect { get_request }.not_to raise_error
         expect(response).to have_http_status(:ok)
-        expect(json).to be_an(Array)
-        expect(json.count).to eq(5)
+        expect(json["books"]).to be_an(Array)
+        expect(json["books"].count).to eq(5)
       end
     end
   end

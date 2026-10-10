@@ -16,4 +16,13 @@ RSpec.describe BookSerializer, type: :serializer do
       status: book.status
     })
   end
+
+  context "when using static method" do
+    subject { described_class }
+
+    let(:resource) { create(:book) }
+    let(:resources) { create_list(:book, 3) }
+
+    include_examples "common methods"
+  end
 end
