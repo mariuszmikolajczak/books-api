@@ -60,7 +60,7 @@ RSpec.describe Api::V1::BooksController, type: :request do
 
       it "returns error" do
         expect { post_request }.not_to change { Book.count }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json["error"]).to eq("Serial number has already been taken")
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::BooksController, type: :request do
 
       it "returns error" do
         expect { post_request }.not_to change { Book.count }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json["error"]).to include("Serial number can't be blank")
         expect(json["error"]).to include("Title can't be blank")
         expect(json["error"]).to include("Author can't be blank")
@@ -102,7 +102,7 @@ RSpec.describe Api::V1::BooksController, type: :request do
 
       it "returns error" do
         expect { delete_request }.not_to raise_error
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(json["error"]).to eq("Cannot archive a borrowed book")
       end
     end

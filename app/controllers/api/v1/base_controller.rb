@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ApplicationController
-  def render_error(message = nil, status = :unprocessable_entity)
+  def render_error(message = nil, status = :unprocessable_content)
     if message.nil?
       head status
     else
