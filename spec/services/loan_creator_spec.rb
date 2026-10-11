@@ -45,6 +45,16 @@ RSpec.describe LoanCreator, type: :service do
     end
   end
 
+  context "when RecordNotUnique exception occurs" do
+    before do
+      allow_any_instance_of(Loan).to receive(:save!).and_raise(ActiveRecord::RecordNotUnique)
+    end
+
+    it "returns error" do
+      expect(call).to match_array([:error, :book_already_borrowed])
+    end
+  end
+
   context "when an exception occurs" do
     before do
       allow(Book).to receive(:find_by).and_raise(StandardError, "Unexpected error")

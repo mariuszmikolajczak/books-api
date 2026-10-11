@@ -10,7 +10,7 @@ class Api::V1::LoansController < Api::V1::BaseController
     in [:exception, message]
       render_error(message, :internal_server_error)
     else
-      render_error
+      render_error(nil, :internal_server_error)
     end
   end
 
@@ -23,7 +23,7 @@ class Api::V1::LoansController < Api::V1::BaseController
     in [:exception, message]
       render_error(message, :internal_server_error)
     else
-      render_error
+      render_error(nil, :internal_server_error)
     end
   end
 

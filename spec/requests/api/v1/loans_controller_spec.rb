@@ -32,6 +32,12 @@ RSpec.describe Api::V1::LoansController, type: :request do
       expect(json["due_at"]).to eq(30.days.from_now.as_json)
     end
 
+    it "returns an error response" do
+      allow(LoanCreator).to receive(:call).and_return(nil)
+      expect { post_request }.not_to raise_error
+      expect(response).to have_http_status(:internal_server_error)
+    end
+
     include_context "bad params"
 
     context "when book is not found" do
@@ -89,6 +95,12 @@ RSpec.describe Api::V1::LoansController, type: :request do
       expect(response).to have_http_status(:no_content)
       expect(book.reload.status).to eq("available")
       expect(loan.reload.returned_at).to eq(Time.current)
+    end
+
+    it "returns an error response" do
+      allow(LoanReturner).to receive(:call).and_return(nil)
+      expect { post_request }.not_to raise_error
+      expect(response).to have_http_status(:internal_server_error)
     end
 
     include_context "bad params"
