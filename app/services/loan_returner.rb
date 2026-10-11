@@ -11,9 +11,10 @@ class LoanReturner
 
   def call
     return [:error, :book_not_found] unless book.present?
-    return [:error, :no_active_loan] unless book.status.casecmp?("borrowed")
 
     book.with_lock do
+      next [:error, :no_active_loan] unless book.status.casecmp?("borrowed")
+
       book.update!(status: :available)
       loan.update!(returned_at: Time.zone.now)
 
