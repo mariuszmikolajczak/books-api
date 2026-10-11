@@ -9,26 +9,48 @@ RSpec.describe SendReminderJob, type: :job do
     describe "#due_soon" do
       subject { described_class.perform_now(loan.id, "due_soon") }
 
-      it "calls ReminderMailer" do
+      before do
         allow(ReminderMailer).to receive_message_chain(:with, :due_soon, :deliver_now)
+      end
 
-        subject
-
+      it "calls ReminderMailer" do
+        expect { subject }.not_to raise_error
         expect(ReminderMailer).to have_received(:with).once
         expect(loan.reload.due_soon_reminder_sent_at).not_to be_nil
+      end
+
+      context "when reminder already sent" do
+        let(:loan) { create(:loan, due_soon_reminder_sent_at: Time.zone.now) }
+
+        it "does not send the reminder again" do
+          expect { subject }.not_to raise_error
+          expect(ReminderMailer).not_to have_received(:with)
+          expect(loan.reload.due_soon_reminder_sent_at).not_to be_nil
+        end
       end
     end
 
     describe "#due_today" do
       subject { described_class.perform_now(loan.id, "due_today") }
 
-      it "calls ReminderMailer" do
+      before do
         allow(ReminderMailer).to receive_message_chain(:with, :due_today, :deliver_now)
+      end
 
-        subject
-
+      it "calls ReminderMailer" do
+        expect { subject }.not_to raise_error
         expect(ReminderMailer).to have_received(:with).once
         expect(loan.reload.due_today_reminder_sent_at).not_to be_nil
+      end
+
+      context "when reminder already sent" do
+        let(:loan) { create(:loan, due_today_reminder_sent_at: Time.zone.now) }
+
+        it "does not send the reminder again" do
+          expect { subject }.not_to raise_error
+          expect(ReminderMailer).not_to have_received(:with)
+          expect(loan.reload.due_today_reminder_sent_at).not_to be_nil
+        end
       end
     end
   end

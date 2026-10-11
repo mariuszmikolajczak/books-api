@@ -2,7 +2,6 @@
 
 class SendReminderJob < ApplicationJob
   queue_as :default
-  discard_on ActiveJob::DeserializationError
 
   def perform(loan_id, kind)
     raise ArgumentError, "unknown reminder: #{kind}" unless Loan::REMINDERS.include?(kind)
