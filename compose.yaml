@@ -33,7 +33,7 @@ services:
 
   migrate:
     <<: *app
-    command: bin/rails db:prepare
+    command: bash -c "(bundle check || bundle install) && bin/rails db:prepare"
     depends_on:
       db:
         condition: service_healthy
