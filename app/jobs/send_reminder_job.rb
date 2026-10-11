@@ -27,7 +27,7 @@ class SendReminderJob < ApplicationJob
         # This should never happen due to the earlier check, but we include it for completeness.
       end
 
-      loan.update!(attributes)
+      loan.update_columns(attributes)
     end
   end
 end
