@@ -27,9 +27,9 @@ To run rails console
 docker compose run --rm web bin/rails c
 ```
 
-To install dependencies after changing the Gemfile
+To run any command
 ```bash
-docker compose run --rm web bundle install
+docker compose run --rm web <command>
 ```
 
 ## SQL Architecture
