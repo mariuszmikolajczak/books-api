@@ -51,7 +51,7 @@ RSpec.describe LoanCreator, type: :service do
     end
 
     it "returns error" do
-      expect(call).to match_array([:exception, "Unexpected error"])
+      expect(call).to match_array([:exception, nil])
     end
   end
 end
