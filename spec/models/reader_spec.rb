@@ -13,7 +13,7 @@ RSpec.describe Reader, type: :model do
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:card_number) }
-    it { is_expected.to validate_numericality_of(:card_number).only_integer.is_greater_than(0) }
+    it { is_expected.to validate_numericality_of(:card_number).only_integer.is_in(1..999_999) }
     it { is_expected.to validate_presence_of(:full_name) }
     it { is_expected.to validate_presence_of(:email) }
 

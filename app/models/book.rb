@@ -5,7 +5,7 @@ class Book < ApplicationRecord
 
   has_many :loans, dependent: :restrict_with_error
 
-  validates :serial_number, presence: true, uniqueness: true, numericality: {only_integer: true, greater_than: 0}
+  validates :serial_number, presence: true, uniqueness: true, numericality: {only_integer: true, in: 1..999_999}
   validates :title, presence: true
   validates :author, presence: true
   validates :status, presence: true, inclusion: {in: STATUSES}
