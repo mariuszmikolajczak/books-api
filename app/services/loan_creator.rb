@@ -22,6 +22,8 @@ class LoanCreator
 
       [:ok, book.loans.create!(reader:, borrowed_at:, due_at:)]
     end
+  rescue ActiveRecord::RecordNotUnique
+    [:error, :book_already_borrowed]
   rescue => e
     # TODO: Consider using a more robust error tracking system like Sentry or Rollbar for production environments.
     Rails.logger.error(e)
