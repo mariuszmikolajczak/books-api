@@ -11,7 +11,7 @@
 
 default: &default
   send_notification_job:
-    class: SendNotificationJob
+    class: ScheduleNotificationJob
     queue: default
     schedule: every 30 seconds
 

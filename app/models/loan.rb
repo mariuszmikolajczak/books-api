@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Loan < ApplicationRecord
+  REMINDERS = %w[due_soon due_today].freeze
+
   belongs_to :book
   belongs_to :reader
 

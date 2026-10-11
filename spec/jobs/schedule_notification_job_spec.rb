@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe SendNotificationJob, type: :job do
+RSpec.describe ScheduleNotificationJob, type: :job do
   describe "#perform" do
     it "calls NotificationScheduler" do
       allow(NotificationScheduler).to receive(:call)
@@ -15,8 +15,7 @@ RSpec.describe SendNotificationJob, type: :job do
 
   describe ".perform_later" do
     it "enqueues the job on the default queue" do
-      expect { described_class.perform_later }
-        .to have_enqueued_job(described_class).on_queue("default")
+      expect { described_class.perform_later }.to have_enqueued_job(described_class).on_queue("default")
     end
   end
 end
