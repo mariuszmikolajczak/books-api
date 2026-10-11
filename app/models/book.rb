@@ -13,7 +13,7 @@ class Book < ApplicationRecord
 
   enum :status, STATUSES.index_by(&:to_sym), validate: true
 
-  default_scope -> { where.not(status: "archived") }
+  scope :not_archived, -> { where.not(status: "archived") }
 
   def formatted_serial = format("%06d", serial_number)
 
