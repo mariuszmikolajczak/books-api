@@ -5,8 +5,7 @@ class LoanSerializer < SimpleLoanSerializer
 
   def as_json
     super.merge(
-      book: BookSerializer.one(@loan.book),
-      reader: ReaderSerializer.one(@loan.reader)
+      book: BookSerializer.one(@loan.book)
     )
   end
 end

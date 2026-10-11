@@ -12,6 +12,8 @@ x-app: &app
   depends_on:
     db:
       condition: service_healthy
+    migrate:
+      condition: service_completed_successfully
 
 services:
   db:
@@ -29,17 +31,32 @@ services:
       timeout: 3s
       retries: 10
 
+  migrate:
+    <<: *app
+    command: bin/rails db:prepare
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
   web:
     <<: *app
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails db:prepare && bin/rails server -b 0.0.0.0 -p 3000"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p 3000"
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsS http://localhost:3000/up || exit 1" ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 20s
 
   jobs:
     <<: *app
     command: bin/jobs
+    restart: unless-stopped
 
 volumes:
   pgdata:

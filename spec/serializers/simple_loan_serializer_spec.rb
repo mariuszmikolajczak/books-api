@@ -12,7 +12,8 @@ RSpec.describe SimpleLoanSerializer, type: :serializer do
       id: loan.id,
       borrowed_at: loan.borrowed_at,
       due_at: loan.due_at,
-      returned_at: loan.returned_at
+      returned_at: loan.returned_at,
+      reader: ReaderSerializer.one(loan.reader)
     })
   end
 

@@ -56,7 +56,8 @@ docker compose run --rm web <command>
 
 - GET `/api/v1/books` - List books
 - POST `/api/v1/books` - Create book
-- DELETE `/api/v1/book/{id}` - Archive book
+- GET `/api/v1/book/{serial_number}` - Show book
+- DELETE `/api/v1/book/{serial_number}` - Archive book
 - GET `/api/v1/readers` - List readers
 - POST `/api/v1/readers` - Create reader
 - POST `/api/v1/loans` - Borrow book
