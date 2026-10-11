@@ -1,0 +1,3 @@
+<p><%= t(".greeting", name: @loan.reader.full_name) %></p>
+<p><%= t(".body", title: @loan.book.title, due_date: l(@loan.due_at, format: :long)) %></p>
+<p><%= t(".signoff") %></p>

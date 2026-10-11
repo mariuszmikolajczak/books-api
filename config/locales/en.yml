@@ -44,3 +44,14 @@ en:
     book_not_found: "Book not found"
     reader_not_found: "Reader not found"
     no_active_loan: "No active loan found for this book"
+  reminder_mailer:
+    due_soon:
+      subject: "Reminder: \"%{title}\" is due in %{days} days"
+      greeting: "Hi %{name},"
+      body: "Just a friendly reminder that your loan of \"%{title}\" ends on %{due_date}. Please return the book by then."
+      signoff: "Thank you"
+    due_today:
+      subject: "Reminder: \"%{title}\" is due today"
+      greeting: "Hi %{name},"
+      body: "Your loan of \"%{title}\" ends today, %{due_date}. Please return the book today."
+      signoff: "Thank you"

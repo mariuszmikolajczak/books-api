@@ -3,7 +3,5 @@
 class SendNotificationJob < ApplicationJob
   queue_as :default
 
-  def perform
-    Rails.logger.info("############### Running SendNotificationJob")
-  end
+  def perform = NotificationScheduler.call
 end
