@@ -7,6 +7,8 @@ class Loan < ApplicationRecord
   belongs_to :reader
 
   scope :active, -> { where(returned_at: nil) }
+  scope :due_soon_reminder_not_sent, -> { where(due_soon_reminder_sent_at: nil) }
+  scope :due_today_reminder_not_sent, -> { where(due_today_reminder_sent_at: nil) }
 
   validates :borrowed_at, presence: true
   validates :due_at, presence: true

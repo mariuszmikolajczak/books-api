@@ -83,4 +83,18 @@ RSpec.describe NotificationScheduler do
       expect { call }.not_to have_enqueued_job(SendReminderJob)
     end
   end
+
+  context "when reminder already sent" do
+    it "skips due_today reminder" do
+      loan = create(:loan, due_at: now.end_of_day, due_today_reminder_sent_at: now - 1.hour)
+
+      expect { call }.not_to have_enqueued_job(SendReminderJob).with(loan.id, "due_today")
+    end
+
+    it "skips due_soon reminder" do
+      loan = create(:loan, due_at: now.tomorrow.beginning_of_day, due_soon_reminder_sent_at: now - 1.hour)
+
+      expect { call }.not_to have_enqueued_job(SendReminderJob).with(loan.id, "due_soon")
+    end
+  end
 end

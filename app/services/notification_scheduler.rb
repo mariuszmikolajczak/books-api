@@ -13,13 +13,13 @@ class NotificationScheduler
   private
 
   def reminder_due_soon
-    Loan.active.where(due_at: due_soon_range).find_each do |loan|
+    Loan.active.due_soon_reminder_not_sent.where(due_at: due_soon_range).find_each do |loan|
       SendReminderJob.perform_later(loan.id, "due_soon")
     end
   end
 
   def reminder_due_today
-    Loan.active.where(due_at: ..Time.zone.now.end_of_day).find_each do |loan|
+    Loan.active.due_today_reminder_not_sent.where(due_at: ..Time.zone.now.end_of_day).find_each do |loan|
       SendReminderJob.perform_later(loan.id, "due_today")
     end
   end
