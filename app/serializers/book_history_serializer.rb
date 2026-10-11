@@ -3,5 +3,5 @@
 class BookHistorySerializer < BookSerializer
   extend CommonMethods
 
-  def as_json = super.merge(loans: SimpleLoanSerializer.many(@book.loans))
+  def as_json = super.merge(loans: SimpleLoanSerializer.many(@book.loans.includes(:reader).order(borrowed_at: :desc)))
 end
